@@ -8,7 +8,9 @@ We are using the PID variables to describe how much the particle in a track beha
 
 The PID information is calculated by an algorithm that takes into account various features of the event. The problem is that in our simulated data ("Monte Carlo"), we are currently still unable to simulate all of these features precisely enough. That means that the PID information we calculated on simulated data is incorrect. We are usually a bit to good in recognizing the particle: For a particle that is simulated to be a proton ("true proton"), the `proton_PIDp` tends to be too high.
 
-This means that if we try to measure the efficieny of a cut on the `proton_PIDp` on Monte Carlo, we are getting it wrong. And if we use the PID as an input for a multivariate classifier, we are getting an incorrect response.
+This means that if we try to measure the efficieny of, for example, a cut on the `proton_PIDp` on Monte Carlo, we are getting it wrong. And if we use the PID as an input for a multivariate classifier, we are getting an incorrect response.
+
+![problem.png](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/problem.png)
 
 ## What does PID resampling do?
 
@@ -19,6 +21,8 @@ The trick is to throw away the PID variables in our Monte Carlo samples (only th
    4. The pseudo rapidity of the particle
 
 Another way of saying this: For a give true particle, the correct PID response is highly correlated with the three kinematic variables `P`, `ETA` und `nTracks`. The good thing is that we know the true particle type in Monte Carlo (because that's how we simulated it) and the other 3 variables are reasonably well simulated as well.
+
+![correlation](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/correlation.png)
 
 In order to obtain the correct relation between these 3 kinematic variables and the PID response we need a "clean" data sample where we have all particles correctly identified. (Without cutting on the PID). In this data sample, all particles reconstruced as, say, Kaon, must actually be true Kaons. It is the task of the PIDCalib group to provide these data samples. There are special samples from different decays for each particle type. We bin each of these data samples in bins of `P`, `ETA` and `nTracks` of the corresponding particle.
 
