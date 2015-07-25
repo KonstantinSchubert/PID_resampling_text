@@ -31,6 +31,8 @@ Then we can resample. For each event in Monte Carlo:
    2. In the data sample, we find all events that are in the corresponding bin of `P`, `ETA` and `nTracks`.
    3. These events show a distribution in each PID variable that is typical for the bin.
    4. For each PID we want to resample, we draw a PID value from its distribution and take it as the resampled PID for the MC event.
+   
+There are multiple scripts in LHCb who are designed to do this. I participated in writing [lhcb_pid_resample](https://github.com/e5-tu-do/lhcb_pid_resample) which attempts to be especially transparent and user-friendly.
 
 # When should I (not) use it?
   (Somebody please confirm the following)
@@ -47,7 +49,7 @@ In order to remove the remaining underground in the clean data samples, the PIDC
 
 ![negative_bins](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/negative_bins.png)
 
-There are quite a few negative bins in the above plot, and it choosing a coarser binning likely won't fix it. In order to randomly draw from this distribution when resampling, one has no other choice (?) than to set these negative bins to zero. Even if these bins would have in fact been zero if there was no background, we must assume that in other kinematic bins there were equivalent upward fluctuations the bin content of the bins which are here negative. In total one creates a bias where the resampled distribution has to many events in the affected area.
+There are quite a few negative bins in the above plot, and choosing a coarser binning likely won't fix it. In order to randomly draw from this distribution when resampling, one has no other choice (?) than to set these negative bins to zero. Even if these bins would have in fact been zero if there was no background, we must assume that in other kinematic bins there were equivalent upward fluctuations the bin content of the bins which are here negative. In total one creates a bias where the resampled distribution has to many events in the affected area.
 
 
-This effect can be reduced if we just want to know the efficiency of a cut. In this case we integrate the s-weighted number events up to the cut point and divide by the full norm. I dont't understand s-weights enought to make qualified statements about this, but while I think it doesn't fully resolve the underlying issue, it does certainly mitigate it to a certain degree.
+This effect can be reduced if we just want to know the efficiency of a cut. In this case we integrate the s-weighted number events up to the cut point and divide by the full norm. I dont't understand s-weights enought to make qualified statements about this, but while I think it doesn't fully resolve the underlying issue, it does certainly mitigate it to a certain degree. There is a function in the PIDCalib Package, [MakePerfHistsRunRange.py](https://twiki.cern.ch/twiki/bin/view/LHCb/PIDCalibPackage#MultiTrack_MakePerfHistsRunRange) which seems to do exactly this, though I haven't tested it yet.
