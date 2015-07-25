@@ -45,9 +45,9 @@ Then we can resample. For each event in Monte Carlo:
 
 In order to remove the remaining underground in the clean data samples, the PIDCalib group calculates s-weights (can somebody point me to a good reference for this) for each event. This "weights away" the remaining background from the PID distributions. However, because S-weights can be negative and because the conditions for a successful S-weighting can not always be fulfilled, it can happen that in some bins of `P`, `ETA` , `nTracks`, a PID distribution may look like this:
 
-figure goes here!!!!
+![negative_bins](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/negative_bins.png)
 
-There are quite a few negative bins. In order to randomly draw from this distribution when resampling, one has no other choice (?) than to set these negative bins to zero. Even if these bins would have in fact been zero if there was no background, we must assume that in other kinematic bins there were upward fluctuations the bin content of the bins which are here negative. In total one creates a bias where the resampled bins in the resampled distribution are too high.
+There are quite a few negative bins in the above plot, and it choosing a coarser binning likely won't fix it. In order to randomly draw from this distribution when resampling, one has no other choice (?) than to set these negative bins to zero. Even if these bins would have in fact been zero if there was no background, we must assume that in other kinematic bins there were equivalent upward fluctuations the bin content of the bins which are here negative. In total one creates a bias where the resampled distribution has to many events in the affected area.
 
 
 This effect can be reduced if we just want to know the efficiency of a cut. In this case we integrate the s-weighted number events up to the cut point and divide by the full norm. I dont't understand s-weights enought to make qualified statements about this, but while I think it doesn't fully resolve the underlying issue, it does certainly mitigate it to a certain degree.
