@@ -14,7 +14,7 @@ This means that if we try to measure the efficieny of, for example, a cut on the
 
 ## What does PID resampling do?
 
-The trick is to throw away the PID variables in our Monte Carlo samples (only there) and create new ones. This is possible because it turns out that  the PID response (`particle_PIDp`,`particle_PIDK`, ...) is approximately a function of
+The trick is to throw away the PID variables in our Monte Carlo samples (only there) and create new ones. (That's why it is called "PID resampling", not "PID reweighting".) This is possible because it turns out that  the PID response (`particle_PIDp`,`particle_PIDK`, ...) is approximately a function of
    1. The true particle type
    2. The particle momentum
    3. The event multiplicity (how many charged tracks are in the momentum)
