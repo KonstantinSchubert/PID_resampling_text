@@ -1,5 +1,8 @@
 # What is PID resampling?
 
+### Disclaimer:
+The stuff below might be incorrect. I am anything but an expert on PID calibration and none of the below has been checked by the PIDCalib group. It reflects the status of my mind, and I hope it will be helpful, but please read with caution.
+
 ## What is PID?
 
 We are using the PID variables to describe how much the particle in a track behaves like a certain particle type. They tell us things like: "This particle looks much more like a Kaon than a Muon". If we then select for particles that look very much like Kaons, we get a sample where most of the particles are actually, in fact, true Kaons. This is obviously very useful. To give an example, let's say that `particle_PIDp` is a measure for how much the `particle` looks like a proton. The higher the value, the more the algorithm thinks it is a proton.
