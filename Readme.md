@@ -20,7 +20,7 @@ This means that if we try to measure the efficieny of, for example, a cut on the
 It turns out that the probability distribution of the PID response (`particle_PIDp`,`particle_PIDK`, ...) is  approximately a function of
    1. The true particle type
    2. The particle momentum
-   3. The event multiplicity (how many charged tracks are in the momentum)
+   3. The event multiplicity (how many charged tracks are in the event)
    4. The pseudo rapidity of the particle
 
 ... and apart from that the same for all decays.
