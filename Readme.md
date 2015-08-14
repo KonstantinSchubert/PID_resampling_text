@@ -15,26 +15,34 @@ This means that if we try to measure the efficieny of, for example, a cut on the
 
 ![problem.png](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/problem.png)
 
-## What does PID resampling do?
+## Why are we not doomed?
 
-The trick is to throw away the PID variables in our Monte Carlo samples (only there) and create new ones. 
-(That's why it is called "PID resampling", not "PID reweighting".) This is possible because it turns out that  the PID response (`particle_PIDp`,`particle_PIDK`, ...) is approximately a function of
+It turns out that the probability distribution of the PID response (`particle_PIDp`,`particle_PIDK`, ...) is  approximately a function of
    1. The true particle type
    2. The particle momentum
    3. The event multiplicity (how many charged tracks are in the momentum)
    4. The pseudo rapidity of the particle
 
-Another way of saying this: For a give true particle, the correct PID response is highly correlated with the three kinematic variables `P`, `ETA` und `nTracks`. The good thing is that we know the true particle type in Monte Carlo (because that's how we simulated it) and the other 3 variables are reasonably well simulated as well.
+... and apart from that the same for all decays.
+
+Another way of saying this would be: For a sample of tracks of a given true particle, the distribution of the PID response in a bin of `P`, `ETA` and `nTracks` is the same among different decays. The good thing is that we know the true particle type in Monte Carlo (because that's how we simulated it) and the other 3 variables are reasonably well simulated as well.
 
 ![correlation](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/correlation.png)
 
-In order to obtain the correct relation between these 3 kinematic variables and the PID response we need a "clean" data sample where we have all particles correctly identified. (Without cutting on the PID). In this data sample, all particles reconstruced as, say, Kaon, must actually be true Kaons. It is the task of the PIDCalib group to provide these data samples. There are special samples from different decays for each particle type. We bin each of these data samples in bins of `P`, `ETA` and `nTracks` of the corresponding particle.
+In order to obtain the true distribution of the PID variables in bins of `P`, `ETA`, `nTracks`, we need a  "clean" data sample where we have all particles correctly identified. (Without cutting on the PID). In this data sample, all particles reconstruced as, say, Kaon, must actually be true Kaons. It is the task of the PIDCalib group to provide these data samples.
+
+## What does PID resampling do?
+
+The trick is to throw away the PID variables in our Monte Carlo samples (only there) and create new ones. 
+(That's why it is called "PID resampling", not "PID reweighting".) 
+
+
+First we take a clean data sample for the particle type who's PID we want to resample and bin it in bins of `P`, `ETA` and `nTracks` of the corresponding particle.
 
 Then we can resample. For each event in Monte Carlo:
-   1. We look at the `P`, `ETA` and `nTracks` variable of the particles who's PID we want to resample.
-   2. In the data sample, we find all events that are in the corresponding bin of `P`, `ETA` and `nTracks`.
-   3. These events show a distribution in each PID variable that is typical for the bin.
-   4. For each PID we want to resample, we draw a PID value from its distribution and take it as the resampled PID for the MC event.
+   1. We look at the `P`, `ETA` and `nTracks` variable of the concerned track.
+   2. In the clean data sample, we find all events that are in the corresponding bin of `P`, `ETA` and `nTracks`.
+   3. From the distributions of the PID variables in this bin, we each draw a value and take it as the resampled PID for the MC event.
    
 There are multiple scripts in LHCb who are designed to do this. I participated in writing [lhcb_pid_resample](https://github.com/e5-tu-do/lhcb_pid_resample) which attempts to be especially transparent and user-friendly.
 
