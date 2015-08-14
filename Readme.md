@@ -42,7 +42,7 @@ The trick is to throw away the PID variables in our Monte Carlo samples (only th
 First we take a clean data sample for the particle type who's PID we want to resample and bin it in bins of `P`, `ETA` and `nTracks` of the corresponding particle.
 
 Then we can resample. For each event in Monte Carlo:
-   1. We look at the `P`, `ETA` and `nTracks` variable of the concerned track.
+   1. We look at the `P`, `ETA` and `nTracks` variable of the concerned track in the MC event.
    2. In the clean data sample, we find all events that are in the corresponding bin of `P`, `ETA` and `nTracks`.
    3. From the distributions of the PID variables in this bin, we each draw a value and take it as the resampled PID for the MC event.
    
