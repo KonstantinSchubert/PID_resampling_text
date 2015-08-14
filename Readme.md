@@ -17,13 +17,15 @@ This means that if we try to measure the efficieny of, for example, a cut on the
 
 ## Why are we not doomed?
 
-It turns out that the probability distribution of the PID response (`particle_PIDp`,`particle_PIDK`, ...) is  approximately a function of
+It turns out that, the probability distribution of the PID response (`particle_PIDp`,`particle_PIDK`, ...) is  approximately a function of
    1. The true particle type
    2. The particle momentum
    3. The event multiplicity (how many charged tracks are in the event)
    4. The pseudo rapidity of the particle
 
-... and apart from that the same for all decays.
+This functional dependency is (approximately) independent of the decay.
+
+(The above holds for the `DLL` - typle PID. For the `ProbNN` - variables, which give PID information using neural networks, this procedure has not yet been established!)
 
 Another way of saying this would be: For a sample of tracks of a given true particle, the distribution of the PID response in a bin of `P`, `ETA` and `nTracks` is the same among different decays. The good thing is that we know the true particle type in Monte Carlo (because that's how we simulated it) and the other 3 variables are reasonably well simulated as well.
 
