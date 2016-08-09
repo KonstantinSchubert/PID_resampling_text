@@ -59,7 +59,7 @@ There are multiple scripts in LHCb who are designed to do this. I participated i
 
 ## Negative bin weights
 
-In order to remove the remaining underground in the clean data samples, the PIDCalib group calculates s-weights (can somebody point me to a good reference for this) for each event. This "weights away" the remaining background from the PID distributions. However, because S-weights can be negative and because the conditions for a successful S-weighting can not always be fulfilled, it can happen that in some bins of `P`, `ETA` , `nTracks`, a PID distribution may look like this:
+In order to remove the remaining background in the clean data samples, the PIDCalib group calculates s-weights (can somebody point me to a good reference for this) for each event. This "weights away" the remaining background from the PID distributions. However, because S-weights can be negative and because the conditions for a successful S-weighting can not always be fulfilled, it can happen that in some bins of `P`, `ETA` , `nTracks`, a PID distribution may look like this:
 
 ![negative_bins](https://raw.githubusercontent.com/KonstantinSchubert/PID_resampling_text/master/negative_bins.png)
 
